@@ -1,0 +1,42 @@
+﻿@model Assignment.Models.Users
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using DataTables.AspNetCore.Mvc
+
+@{
+	ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+		asp-fallback-src="~/lib/jquery/jquery.min.js"
+		asp-fallback-test="window.jQuery"
+		crossorigin="anonymous"
+		integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
+</script>
+<p>
+	<a asp-action="Create">Create New</a>
+</p>
+
+	
+
+  @(Html.Ext().Grid<Users>().Name("user").RowId("id")
+			.Columns(cols =>
+			{
+				cols.Add(c => c.Name).Title("Name");
+				cols.Add(c => c.Email).Title("Email");
+				cols.Add(c => c.Gender).Title("Gender");
+				cols.Add(c => c.RegisteredDate).Title("Date Reg");
+				cols.Add(c => c.SelectedEvents).Title("Selected Events");
+				cols.Add(c => c.AdditionalRequest).Title("Add Request");
+
+			})
+			.ServerSide(true)
+			.DataSource(c =>
+				c.Ajax().Url("/api/users").Method("GET")
+			)
+)
+
+
+
+
+
